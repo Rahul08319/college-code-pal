@@ -10,17 +10,21 @@ export const useCodeModel = () => {
       try {
         console.log("Loading code generation model...");
         
-        // Using a smaller, browser-compatible code model
+        // Using a lightweight, browser-optimized model
         const pipe = await pipeline(
           "text-generation",
-          "Xenova/codegen-350M-mono",
-          { device: "wasm" }
+          "onnx-community/gpt2",
+          { 
+            device: "wasm",
+            dtype: "q8"
+          }
         );
         
         setGenerator(pipe);
         console.log("Model loaded successfully!");
       } catch (error) {
         console.error("Error loading model:", error);
+        console.error("Full error details:", JSON.stringify(error, null, 2));
       } finally {
         setIsLoading(false);
       }
