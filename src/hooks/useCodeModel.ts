@@ -20,7 +20,7 @@ export const useCodeModel = () => {
           }
         );
         
-        setGenerator(pipe);
+        setGenerator(() => pipe);
         console.log("Model loaded successfully!");
       } catch (error) {
         console.error("Error loading model:", error);
